@@ -34,23 +34,25 @@ const list = async (req, res) => {
     try {
         const { body } = req;
         const offset = (body.page - 1) * body.limit;
-        const productList = await knex('products')
+        const productList = await knex('products as p')
+            .select('p.id', 'p.image', 'p.name as product_name', 'p.description', 'p.category', 'p.quantity', 'p.price', 'c.name as category_name')
+            .leftJoin('categories as c', 'c.id', 'p.category')
             .where((qb) => {
                 if (body.search_word) {
-                    qb.where('name', 'like', `%${body.search_word}%`);
+                    qb.where('p.name', 'like', `%${body.search_word}%`);
                 }
 
                 if (body.category) {
-                    qb.where({ category: body.category });
+                    qb.where({ 'p.category': body.category });
                 }
 
                 if (body.start_range && body.end_range) {
-                    qb.whereBetween('price', [body.start_range, body.end_range]);
+                    qb.whereBetween('p.price', [body.start_range, body.end_range]);
                 }
             })
             .limit(body.limit)
             .offset(offset)
-            .orderBy('id', 'desc');
+            .orderBy('p.id', 'desc');
 
         if (productList.length > 0) {
             res.sendSuccess(productList, "Products extracted");
@@ -67,7 +69,10 @@ const list = async (req, res) => {
 const single = async (req, res) => {
     try {
         const { id } = req.params;
-        const singleProduct = await knex('products').where({ id: id });
+        const singleProduct = await await knex('products as p')
+            .select('p.id', 'p.image', 'p.name as product_name', 'p.description', 'p.category', 'p.quantity', 'p.price', 'c.name as category_name')
+            .leftJoin('categories as c', 'c.id', 'p.category')
+            .where({ 'p.id': id });
         if (singleProduct.length > 0) {
             res.sendSuccess(singleProduct[0], "product details extracted");
         }
