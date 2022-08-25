@@ -1,0 +1,30 @@
+{
+  "name": "webelight_practical_nodejs",
+  "version": "1.0.0",
+  "description": "webelight_practical_nodejs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "export NODE_ENV=development&& nodemon index.js",
+    "prod": "export NODE_ENV=production&& nodemon index.js"
+  },
+  "author": "AD",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "handlebars": "^4.7.7",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.6",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.6.2",
+    "nodemon": "^2.0.19",
+    "path": "^0.12.7"
+  }
+}
