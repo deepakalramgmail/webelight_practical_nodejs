@@ -19,5 +19,4 @@ const routeMiddleWares = async (req, res, next) => {
     }
 }
 
-
 module.exports = { routeMiddleWares }

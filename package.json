@@ -18,6 +18,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "googleapis": "^104.0.0",
     "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.6",
