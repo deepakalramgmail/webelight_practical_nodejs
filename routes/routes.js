@@ -3,6 +3,7 @@ const { routeMiddleWares, imageSaveMiddleware } = require('../helper/middlewares
 /* controller */
 const auth = require('../controller/auth');
 const product = require('../controller/product');
+const category = require('../controller/category');
 /* controller */
 
 routes.post('/auth/register', routeMiddleWares, auth.register);
@@ -13,5 +14,7 @@ routes.put('/product/edit', routeMiddleWares, imageSaveMiddleware.single('image'
 routes.delete('/product/:id', routeMiddleWares, product.remove);
 routes.get('/product/:id', product.single);
 routes.post('/product', product.list);
+
+routes.get('/category', category.list);
 
 module.exports = routes;
