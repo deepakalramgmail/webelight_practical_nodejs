@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
 const routeMiddleWares = async (req, res, next) => {
     const bearerHeader = req.headers['x-access-token'] || req.headers['authorization'];
@@ -19,4 +20,15 @@ const routeMiddleWares = async (req, res, next) => {
     }
 }
 
-module.exports = { routeMiddleWares }
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const imageSaveMiddleware = multer({ storage: storage });
+
+module.exports = { routeMiddleWares, imageSaveMiddleware}
