@@ -20,6 +20,25 @@ const routeMiddleWares = async (req, res, next) => {
     }
 }
 
+const roleAccess = (roleType) => {
+    return (req, res, next) => {
+        if (req.loginUser) {
+            if (roleType.length > 0) {
+                let checkUser = roleType.filter(x => x === req.loginUser.role_name)
+                if (checkUser.length === 0) {
+                    return res.sendForbidden("You didn't have permission to access this route!!");
+                }
+                else {
+                    next();
+                }
+                console.log("check  2")
+            }
+            console.log("check  1")
+        }
+
+    }
+}
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/images')
@@ -31,4 +50,4 @@ const storage = multer.diskStorage({
 
 const imageSaveMiddleware = multer({ storage: storage });
 
-module.exports = { routeMiddleWares, imageSaveMiddleware}
+module.exports = { routeMiddleWares, imageSaveMiddleware, roleAccess }

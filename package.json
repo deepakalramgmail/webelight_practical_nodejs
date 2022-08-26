@@ -2,6 +2,14 @@
   "name": "webelight_practical_nodejs",
   "version": "1.0.0",
   "description": "webelight_practical_nodejs",
+  "apidoc": {
+    "version": "1.0.0",
+    "name": "webelight_practical_nodejs",
+    "description": "apiDoc for developer",
+    "title": "webelight_practical_nodejs",
+    "url": "http://localhost:3005/api/v1/",
+    "sampleUrl":true
+  },
   "main": "index.js",
   "scripts": {
     "dev": "export NODE_ENV=development&& nodemon index.js",
@@ -10,6 +18,7 @@
   "author": "AD",
   "license": "ISC",
   "dependencies": {
+    "apidoc": "^0.52.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
