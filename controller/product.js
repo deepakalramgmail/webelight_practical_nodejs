@@ -1,5 +1,42 @@
 const knex = require("knex")(require("../db/db"));
 
+/**
+  * @api {post} /api/v1/product/add add-product
+  * @apiDescription This API is used for add card
+  * @apiVersion 1.0.0
+  * @apiGroup Product
+  * @apiName add-product
+  *
+  * @apiHeader {String} Authorization `Bearer token` 
+  * 
+  * @apiBody (Parameters) {String} image image of product
+  * @apiBody (Parameters) {String} name name of the product
+  * @apiBody (Parameters) {String} description description of product
+  * @apiBody (Parameters) {Number} category category of product
+  * @apiBody (Parameters) {Number} quantity quantity of product
+  * @apiBody (Parameters) {Number} price price of product
+  *
+  * @apiParamExample {json} Request-Example:
+  * {
+  *     "image":"demo.png",
+  *     "name":"Test Product",
+  *     "description":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+  *     "category":1,
+  *     "quantity":30,
+  *     "price":100,
+  * }
+  *
+  * @apiSuccess (Success 200) {Number} status Response status code.
+  * @apiSuccess (Success 200) {Array} data Response of main data.
+  * @apiSuccess (Success 200) {String} message Response message string.
+  *
+  * @apiSuccessExample {json} Success-Response:
+  * {
+  *  "status": 200,
+  *  "data": [],
+  *  "message": "product added successfully"
+  *  }
+*/
 const add = async (req, res) => {
     try {
         const { body, file } = req;
@@ -30,6 +67,52 @@ const add = async (req, res) => {
     }
 }
 
+/**
+  * @api {post} /api/v1/product products
+  * @apiDescription This API is used to get card list
+  * @apiVersion 1.0.0
+  * @apiGroup Product
+  * @apiName products
+  * 
+  * @apiBody (Parameters) {String} page page count of the page
+  * @apiBody (Parameters) {String} limit per page data limit (like 10 records or 5 records)
+  * @apiBody (Parameters) {String} search_word your search key word
+  * @apiBody (Parameters) {String} category category id 
+  * @apiBody (Parameters) {String} start_range price start range
+  * @apiBody (Parameters) {String} end_range price end range
+  *
+  * @apiParamExample {json} Request-Example:
+  *  {
+  *      "limit": 10,
+  *      "page": 1,
+  *      "search_word":"d",
+  *      "category":1,
+  *      "start_range":30,
+  *      "end_range":90
+  *  }
+  *
+  * @apiSuccess (Success 200) {Number} status Response status code.
+  * @apiSuccess (Success 200) {Array} data Response of main data.
+  * @apiSuccess (Success 200) {String} message Response message string.
+  *
+  * @apiSuccessExample {json} Success-Response:
+  *  {
+  *      "status": 200,
+  *      "data": [
+  *          {
+  *              "id": 5,
+  *              "image": "sample.png",
+  *              "product_name": "Test Product",
+  *              "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+  *              "category": 1,
+  *              "quantity": 19,
+  *              "price": "30",
+  *              "category_name": "food"
+  *          }
+  *      ],
+  *      "message": "Products extracted"
+  *  }
+*/
 const list = async (req, res) => {
     try {
         const { body } = req;
@@ -66,6 +149,36 @@ const list = async (req, res) => {
     }
 }
 
+/**
+  * @api {get} /api/v1/product/:id single-product
+  * @apiDescription This API is used to get single product details list out documenttype
+  * @apiVersion 1.0.0
+  * @apiGroup Product
+  * @apiName single-product
+  *
+  * @apiParam {Number} id product unique ID.
+  *
+  * @apiSuccess (Success 200) {Number} status Response status code.
+  * @apiSuccess (Success 200) {Array} data Response of main data.
+  * @apiSuccess (Success 200) {String} message Response message string.
+  *
+  * @apiSuccessExample {json} Success-Response:
+  * 
+  *  {
+  *      "status": 200,
+  *      "data": {
+  *          "id": 5,
+  *          "image": "sample.png",
+  *          "product_name": "Test Product",
+  *          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+  *          "category": 1,
+  *          "quantity": 19,
+  *          "price": "30",
+  *          "category_name": "food"
+  *      },
+  *      "message": "product details extracted"
+  *  }
+*/
 const single = async (req, res) => {
     try {
         const { id } = req.params;
@@ -85,6 +198,43 @@ const single = async (req, res) => {
     }
 }
 
+/**
+  * @api {put} /api/v1/product/edit edit-product
+  * @apiDescription This API is used for edit product
+  * @apiVersion 1.0.0
+  * @apiGroup Product
+  * @apiName edit-product
+  * 
+  * @apiHeader {String} Authorization `Bearer token` 
+  * 
+  * @apiBody (Parameters) {String} image image of product
+  * @apiBody (Parameters) {String} name name of the product
+  * @apiBody (Parameters) {String} description description of product
+  * @apiBody (Parameters) {Number} category category of product
+  * @apiBody (Parameters) {Number} quantity quantity of product
+  * @apiBody (Parameters) {Number} price price of product
+  *
+  * @apiParamExample {json} Request-Example:
+  * {
+  *     "image":"demo.png",
+  *     "name":"Test Product",
+  *     "description":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+  *     "category":1,
+  *     "quantity":30,
+  *     "price":100,
+  * }
+  *
+  * @apiSuccess (Success 200) {Number} status Response status code.
+  * @apiSuccess (Success 200) {Array} data Response of main data.
+  * @apiSuccess (Success 200) {String} message Response message string.
+  *
+  * @apiSuccessExample {json} Success-Response:
+  * {
+  *  "status": 200,
+  *  "data": [],
+  *  "message": "product details updated successfully"
+  *  }
+*/
 const edit = async (req, res) => {
     try {
         const { body } = req;
@@ -113,6 +263,28 @@ const edit = async (req, res) => {
     }
 }
 
+/**
+  * @api {delete} /api/v1/product/:id delete-product
+  * @apiDescription This API is used to delete product
+  * @apiVersion 1.0.0
+  * @apiGroup Product
+  * @apiName delete-product
+  *
+  * @apiHeader {String} Authorization `Bearer token` 
+  * 
+  * @apiParam {Number} id product unique ID.
+  *
+  * @apiSuccess (Success 200) {Number} status Response status code.
+  * @apiSuccess (Success 200) {Array} data Response of main data.
+  * @apiSuccess (Success 200) {String} message Response message string.
+  *
+  * @apiSuccessExample {json} Success-Response:
+  * {
+  *     "status": 200,
+  *     "data": [],
+  *     "message": "product deleted successfully"
+  * }
+*/
 const remove = async (req, res) => {
     try {
         const { id } = req.params;
