@@ -21,7 +21,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1000
 app.use(cors())
 
 /* apidoc  */
-app.use('/web_api_doc', express.static('./apidoc/web_api'));
+app.use('/apidoc', express.static('./apidoc'));
 /* apidoc  */
 
 app.use(express.static(__dirname + '/public'));
@@ -34,4 +34,8 @@ require("./common/express_custom_function")(express);
 server.listen(process.env.PORT || 3005, (err) => {
     if (err) throw (err);
     console.log('Server Up And Working');
+    console.log("====================================>");
+    console.log("ADMIN USER ", { email: 'adminuser@mailinator.com', password: "adminuser@123" });
+    console.log("CUSTOMER ", { email: 'customeruser@mailinator.com', password: "customeruser@123" });
+    console.log("====================================>");
 });
